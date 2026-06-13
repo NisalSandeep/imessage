@@ -1,0 +1,32 @@
+node_modules
+dist
+build
+.env
+
+# Ignore log files
+logs
+*.log
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+# Ignore IDE specific files
+.vscode
+.idea
+# Ignore coverage reports
+coverage
+# Ignore npm debug files
+npm-debug.log*
+# Ignore lock files
+package-lock.json
+yarn.lock
+# Ignore test output
+test-output
+# Ignore temporary files
+tmp
+# Ignore generated files
+*.generated.js
+# Ignore compiled files
+*.tsbuildinfo
+# Ignore public assets
+public/assets
+
