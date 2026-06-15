@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import connectDB from "./lib/db.js";
 import dns from "dns";
 import cors from "cors";
+import fs from "fs";
+import path from "path"
 
 import { clerkMiddleware } from "@clerk/express";
 
@@ -14,6 +16,8 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL;
+
+const publicDir = path.json(process.cwd(), "public")
 
 app.use(express.json()); // This allows us to use express JSON parser
 app.use(
@@ -31,6 +35,13 @@ app.get("/health", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+if (fs.existsSync(publicDir)) {
+  app.use(express.static(publicDir));
+  app.get("/{*any}", (req, res) => {
+    res.sendFile(path.join(publicDir, "index.html"));
+  });
+}
 
 app.listen(PORT, async () => {
   await connectDB();
