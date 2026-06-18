@@ -4,7 +4,8 @@ import connectDB from "./lib/db.js";
 import dns from "dns";
 import cors from "cors";
 import fs from "fs";
-import path from "path"
+import path from "path";
+import job from "./lib/cron.js";
 
 import { clerkMiddleware } from "@clerk/express";
 
@@ -17,14 +18,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
-const publicDir = path.join(process.cwd(), "public")
+const publicDir = path.join(process.cwd(), "public");
 
 app.use(express.json()); // This allows us to use express JSON parser
 app.use(
   cors({
     origin: FRONTEND_URL,
     credentials: true,
-  })
+  }),
 );
 app.use(clerkMiddleware());
 
@@ -46,4 +47,5 @@ if (fs.existsSync(publicDir)) {
 app.listen(PORT, async () => {
   await connectDB();
   console.log(`Server is running on port ${PORT}`);
+  if (process.env.NODE_ENV === "production") job.start();
 });
