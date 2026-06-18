@@ -17,7 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
-const publicDir = path.json(process.cwd(), "public")
+const publicDir = path.join(process.cwd(), "public")
 
 app.use(express.json()); // This allows us to use express JSON parser
 app.use(
