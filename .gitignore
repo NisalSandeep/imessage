@@ -17,7 +17,7 @@ coverage
 # Ignore npm debug files
 npm-debug.log*
 # Ignore lock files
-package-lock.json
+# package-lock.json (removed to commit for docker build)
 yarn.lock
 # Ignore test output
 test-output
