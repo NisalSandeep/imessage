@@ -1,6 +1,6 @@
 import express from "express";
 import User from "../models/user.model.js";
-import { varifyWebhook } from "@clerk/backend/webhooks";
+import { verifyWebhook } from "@clerk/backend/webhooks";
 import dotenv from "dotenv";
 
 dotenv.config();
