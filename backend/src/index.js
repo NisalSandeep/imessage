@@ -8,6 +8,7 @@ import path from "path";
 import job from "./lib/cron.js";
 
 import { clerkMiddleware } from "@clerk/express";
+import clerkWebhook from "./webhooks/clerk.js";
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
@@ -20,6 +21,8 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 
 const publicDir = path.join(process.cwd(), "public");
 
+app.use("/api/webhooks/clerk",express.raw({type:"application/json"}), clerkWebhook)
+
 app.use(express.json()); // This allows us to use express JSON parser
 app.use(
   cors({
@@ -27,6 +30,7 @@ app.use(
     credentials: true,
   }),
 );
+
 app.use(clerkMiddleware());
 
 app.get("/health", (req, res) => {
