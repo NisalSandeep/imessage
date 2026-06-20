@@ -8,7 +8,8 @@ import path from "path";
 import job from "./lib/cron.js";
 
 import { clerkMiddleware } from "@clerk/express";
-import clerkWebhook from "./webhooks/clerk.js";
+import clerkWebhook from "./webhooks/clerk.webhook.js";
+import authRoutes from "./routes/auth.route.js";
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
@@ -40,6 +41,8 @@ app.get("/health", (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+app.use("/api/auth", authRoutes)
 
 if (fs.existsSync(publicDir)) {
   app.use(express.static(publicDir));
